@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Upload File to Azure Blob Storage</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="column" fxLayoutGap="16px">
+      <input type="file" (change)="onFileSelected($event)" [disabled]="isUploading">
+      <button mat-raised-button color="primary"
+              (click)="uploadFile()"
+              [disabled]="!selectedFile || isUploading">
+        <span *ngIf="!isUploading">Upload</span>
+        <span *ngIf="isUploading">Uploading...</span>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

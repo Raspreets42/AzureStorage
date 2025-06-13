@@ -1,0 +1,54 @@
+<mat-card class="file-list-card">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>folder</mat-icon>
+      Files in Azure Blob Storage
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list>
+      <!-- File Items -->
+      <mat-list-item *ngFor="let file of files" class="file-item">
+        <mat-icon mat-list-icon>
+          {{ getFileIcon(file.name) }}
+        </mat-icon>
+
+        <div class="file-info">
+          <div class="file-name">{{ file.name }}</div>
+          <div class="file-meta">
+            {{ formatBytes(file.properties.contentLength) }} •
+            {{ file.properties.contentType }} •
+            {{ file.properties.lastModified | date:'medium' }}
+          </div>
+        </div>
+
+        <div class="file-actions">
+<!--          <button mat-icon-button-->
+<!--                  matTooltip="Copy URL"-->
+<!--                  (click)="copyFileUrl(file)">-->
+<!--            <mat-icon>link</mat-icon>-->
+<!--          </button>-->
+
+          <button mat-icon-button color="primary"
+                  matTooltip="Download"
+                  (click)="downloadFile(file)">
+            <mat-icon>cloud_download</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn"
+                  matTooltip="Delete"
+                  (click)="deleteFile(file)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+
+      <!-- Empty State -->
+      <mat-list-item *ngIf="files.length === 0">
+        <mat-icon mat-list-icon>folder_open</mat-icon>
+        <div mat-line>No files found in storage</div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
